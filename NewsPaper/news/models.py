@@ -69,6 +69,9 @@ class Post(models.Model):
     def preview(self):
         return self.text[:125]+"..."
 
+    def __str__(self):
+        return f'Заголовок: {self.title}. Содержание: {self.text}'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)

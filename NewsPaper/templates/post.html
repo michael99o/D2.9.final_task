@@ -1,0 +1,27 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load censor_filter %}
+<!-- Название у нас будет Product -->
+{% block title %}
+News%Article
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h1>
+    <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Дата публикации</td>
+               <td>Полное содержание</td>
+               <td>Рейтинг новости</td>
+           </tr>
+           <tr>
+               <td>{{ post.title|censor }}</td>
+               <td>{{ post.date|date:'d M Y' }}</td>
+               <td>{{ post.text|censor }}</td>
+               <td>{{ post.post_rating }}</td>
+           </tr>
+       </table>
+</h1>
+{% endblock content %}

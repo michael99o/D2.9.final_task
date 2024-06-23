@@ -48,6 +48,9 @@ class Author(models.Model):
 class Category(models.Model):
     topic = models.CharField(max_length=2, choices=TOPICS, default=politic, unique=True)
 
+    def __str__(self):
+        return self.topic
+
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete = models.CASCADE)

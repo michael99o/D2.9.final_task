@@ -5,17 +5,22 @@
 
 <!-- Название у нас будет products -->
 {% block title %}
-There are some news and article
+Поиск по новостям
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-  <h1>Все новости только тут</h1>
+  <h1>Поиск по новостям</h1>
   <h3>Общее количество новостей: {{posts|length}}</h3>
    <!--  <h3>{{time_now|date:'M d Y'}}</h3>
    <hr>
    <h3>{{next_sale|default_if_none:'Распродажа будет позднее. Следите за новостями в TG'}}</h3>
    <hr>-->
+<form action="" method="get">
+    {{filterset.form.as_p}}
+    <input type="submit" value="Найти"/>
+</form>>
+   {% if post.content == news%}
    {% if posts %}
        <table>
            <tr>
@@ -33,7 +38,10 @@ There are some news and article
 
        </table>
    {% else %}
-       <h2>Новостей нет!</h2>
+       <h2>Новостей пока нет!</h2>
+   {% endif %}
+   {% else %}
+       <h2>Новостей пока нет!</h2>
    {% endif %}
 {# Добавляем пагинацию на страницу #}
 

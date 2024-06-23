@@ -5,13 +5,13 @@
 
 <!-- Название у нас будет products -->
 {% block title %}
-There are some news and article
+There are some article
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-  <h1>Все новости только тут</h1>
-  <h3>Общее количество новостей: {{posts|length}}</h3>
+  <h1>Все статьи только тут</h1>
+  <h3>Общее количество статей: {{posts|length}}</h3>
    <!--  <h3>{{time_now|date:'M d Y'}}</h3>
    <hr>
    <h3>{{next_sale|default_if_none:'Распродажа будет позднее. Следите за новостями в TG'}}</h3>

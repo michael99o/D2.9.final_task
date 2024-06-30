@@ -1,6 +1,7 @@
-from django_filters import FilterSet, ModelChoiceFilter, DateTimeFilter
+from django_filters import FilterSet, ChoiceFilter, ModelChoiceFilter, DateTimeFilter
 from django.forms import DateTimeInput
 from .models import Post, Category
+from .resources import CONTENT
 
 class NewsFilter(FilterSet):
     category = ModelChoiceFilter(
@@ -18,6 +19,14 @@ class NewsFilter(FilterSet):
             attrs={'type': 'datetime-local'},
         ),
     )
+
+    content = ChoiceFilter(
+        field_name = 'content',
+        label = 'Тип публикации',
+        empty_label = 'Все типы',
+        choices = CONTENT
+    )
+
     class Meta:
         model = Post
         fields = {

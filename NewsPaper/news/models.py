@@ -4,6 +4,7 @@ from django.db.models.functions import Coalesce
 from datetime import datetime
 from .resources import TOPICS, politic, CONTENT, article
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 
@@ -44,12 +45,15 @@ class Author(models.Model):
         self.user_rating = posts_rating * 3 + comments_rating + posts_comments_rating
         self.save()
 
+    # def __str__(self):
+    #     return self.get_user_display()
+
 
 class Category(models.Model):
     topic = models.CharField(max_length=2, choices=TOPICS, default=politic, unique=True)
 
     def __str__(self):
-        return self.topic
+        return self.get_topic_display()
 
 
 class Post(models.Model):
@@ -74,6 +78,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'Заголовок: {self.title}. Содержание: {self.text}'
+
+    def get_absolute_url(self):
+        return reverse ('post_deatail', args = [str(self.id)])
 
 
 class PostCategory(models.Model):

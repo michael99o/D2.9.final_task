@@ -27,12 +27,14 @@
                <td>Заголовок</td>
                <td>Дата публикации</td>
                <td>Краткое описание</td>
+               <td>Тип публикации</td>>
            </tr>
            {% for post in posts %}
            <tr>
                <td>{{ post.title|censor }}</td>
                <td>{{ post.date|date:'d M Y' }}</td>
                <td>{{ post.text|truncatewords:30|censor }}</td>
+               <td>{{ post.get_content_display }}</td>>
            </tr>
            {% endfor %}
 

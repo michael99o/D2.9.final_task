@@ -1,8 +1,11 @@
 from datetime import datetime
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .filters import NewsFilter
+from django.urls import reverse_lazy
+from .forms import NewsForm, ArticlesForm
+from .resources import news, article
 
 # Create your views here.
 
@@ -54,3 +57,33 @@ class ArticlePostList(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(content='AR')
+
+class NewsCreate(CreateView):
+    form_class = NewsForm
+    model = Post
+    template_name = 'post_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.content = news
+        return super().form_valid(form)
+
+class ArticlesCreate(CreateView):
+    form_class = ArticlesForm
+    model = Post
+    template_name = 'post_edit.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.content = article
+        return super().form_valid(form)
+
+class PostUpdate(UpdateView):
+    form_class = NewsForm
+    model = Post
+    template_name = 'post_edit.html'
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('post_list')

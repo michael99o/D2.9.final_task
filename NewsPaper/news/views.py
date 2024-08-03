@@ -1,6 +1,9 @@
 from datetime import datetime
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import (
+    ListView, DetailView, CreateView, UpdateView, DeleteView,
+)
 from .models import Post
 from .filters import NewsFilter
 from django.urls import reverse_lazy
@@ -59,6 +62,7 @@ class ArticlePostList(ListView):
         return Post.objects.filter(content='AR')
 
 class NewsCreate(CreateView):
+    permission_required = ('news.add_post',)
     form_class = NewsForm
     model = Post
     template_name = 'post_edit.html'
@@ -69,6 +73,7 @@ class NewsCreate(CreateView):
         return super().form_valid(form)
 
 class ArticlesCreate(CreateView):
+    permission_required = ('news.add_post',)
     form_class = ArticlesForm
     model = Post
     template_name = 'post_edit.html'
@@ -79,6 +84,7 @@ class ArticlesCreate(CreateView):
         return super().form_valid(form)
 
 class PostUpdate(UpdateView):
+    permission_required = ('news.change_post',)
     form_class = NewsForm
     model = Post
     template_name = 'post_edit.html'

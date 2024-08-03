@@ -23,6 +23,9 @@ There are some news and article
                <td>Дата публикации</td>
                <td>Краткое описание</td>
                <td>Тип публикации</td>>
+               {# Условие получается составным. #}
+                {% if perms.news.change_post or perms.news.delete_post %}
+                <td>Действия</td>
            </tr>
            {% for post in posts %}
            <tr>
@@ -30,6 +33,13 @@ There are some news and article
                <td>{{ post.date|date:'d M Y' }}</td>
                <td>{{ post.text|truncatewords:30|censor }}</td>
                <td>{{ post.get_content_display }}</td>>
+               {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                    {% if perms.news.change_post %}
+                    <a href="{% url 'post_update' pk=post.id %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.news.delete_post %}
+                    <a href="{% url 'post_delete' post.id %}">Удалить</a>
+                    {% endif %}
            </tr>
            {% endfor %}
 

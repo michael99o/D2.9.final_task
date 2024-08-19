@@ -61,7 +61,7 @@ class ArticlePostList(ListView):
     def get_queryset(self):
         return Post.objects.filter(content='AR')
 
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add_post',)
     form_class = NewsForm
     model = Post
@@ -72,7 +72,7 @@ class NewsCreate(CreateView):
         post.content = news
         return super().form_valid(form)
 
-class ArticlesCreate(CreateView):
+class ArticlesCreate(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add_post',)
     form_class = ArticlesForm
     model = Post
@@ -83,13 +83,14 @@ class ArticlesCreate(CreateView):
         post.content = article
         return super().form_valid(form)
 
-class PostUpdate(UpdateView):
+class PostUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('news.change_post',)
     form_class = NewsForm
     model = Post
     template_name = 'post_edit.html'
 
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
